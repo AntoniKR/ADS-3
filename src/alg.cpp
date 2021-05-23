@@ -4,28 +4,28 @@
 
 int math(int first, int second, char symbol) {
     switch (symbol) {
-    case '*':
-    {
-        second *= first;
-        return second;
-    }
-    case '/':
-    {
-        second /= first;
-        return second;
-    }
-    case '+':
-    {
-        second += first;
-        return second;
-    }
-    case '-':
-    {
-        second -= first;
-        return second;
-    }
-    default:
-        break;
+        case '*':
+            {
+                second *= first;
+                return second;
+            }
+        case '/':
+            {
+                second /= first;
+                return second;
+            }
+        case '+':
+            {
+                second += first;
+                return second;
+            }
+        case '-':
+            {
+                second -= first;
+                return second;
+            }
+        default:
+            break;
     }
     return second;
 }
@@ -43,7 +43,6 @@ int priority(char chr) {
 }
 std::string infx2pstfx(std::string inf) {
     // добавьте сюда нужный код
-    return std::string("");
     TStack<char> stack1;
     std::string result;
     int priori = -1;
@@ -57,20 +56,17 @@ std::string infx2pstfx(std::string inf) {
         if (chr >= '0' && chr <= '9') {
             if (!firstNumber) {
                 firstNumber = true;
-            }
-            else {
+            } else {
                 result.push_back(' ');
             }
             result.push_back(chr);
-        }
-        else {
+        } else {
             priori = priority(chr);
             priorityTop = priority(chrPrv);
             if ((stack1.isEmpty() || priori > priorityTop || !priori)
                 && priori != 1) {
                 stack1.push(chr);
-            }
-            else {
+            } else {
                 if (priori == 1) {
                     while (stack1.get() != '(') {
                         result.push_back(' ');
@@ -78,8 +74,7 @@ std::string infx2pstfx(std::string inf) {
                         stack1.pop();
                     }
                     stack1.pop();
-                }
-                else {
+                } else {
                     if (priori <= priorityTop && priori > 1) {
                         while (!stack1.isEmpty() && stack1.get() != '(') {
                             result.push_back(' ');
@@ -102,7 +97,6 @@ std::string infx2pstfx(std::string inf) {
 
 int eval(std::string pst) {
     // добавьте сюда нужный код
-    return 0;
     int result = 0;
     TStack<char> stack1;
     TStack<int> stack2;
@@ -115,8 +109,7 @@ int eval(std::string pst) {
         if (chr != ' ') {
             if (chr >= '0' && chr <= '9') {
                 stack2.push(chr - 48);
-            }
-            else {
+            } else {
                 first = stack2.get();
                 stack2.pop();
                 second = stack2.get();
