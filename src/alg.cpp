@@ -4,30 +4,30 @@
 
 int math(int first, int second, char symbol) {
     switch (symbol) {
-        case '*':
-            {
-                second *= first;
-                return second;
-            }
-        case '/':
-            {
-                second /= first;
-                return second;
-            }
-        case '+':
-            {
-                second += first;
-                return second;
-            }
-        case '-':
-            {
-                second -= first;
-                return second;
-            }
-        default:
-            break;
+    case '*':
+    {
+        second *= first;
+        return second;
     }
-    return scnd;
+    case '/':
+    {
+        second /= first;
+        return second;
+    }
+    case '+':
+    {
+        second += first;
+        return second;
+    }
+    case '-':
+    {
+        second -= first;
+        return second;
+    }
+    default:
+        break;
+    }
+    return second;
 }
 int priority(char chr) {
     int priori = 0;
@@ -42,8 +42,8 @@ int priority(char chr) {
     return priori;
 }
 std::string infx2pstfx(std::string inf) {
-  // добавьте сюда нужный код
-  return std::string("");
+    // добавьте сюда нужный код
+    return std::string("");
     TStack<char> stack1;
     std::string result;
     int priori = -1;
@@ -52,40 +52,44 @@ std::string infx2pstfx(std::string inf) {
     char chrPrv = ' ';
     bool firstNumber = 0;
     for (int i = 0; i < inf.length(); i++) {
-       chr = inf[i];
-       chrPrv = stack1.get();
-       if (chr >= '0' && chr <= '9') {
-           if (!firstNumber) {
+        chr = inf[i];
+        chrPrv = stack1.get();
+        if (chr >= '0' && chr <= '9') {
+            if (!firstNumber) {
                 firstNumber = true;
-           } else {
-               result.push_back(' ');
-           }
-           result.push_back(ch);
-        } else {
-           priori = priority(chr);
-           priorTop = priority(chrPrv);
-           if ((stack1.isEmpty() ||  priori > priorityTop || !priori)
-               && priori != 1) {
-               stack1.push(chr);
-           } else {
-               if (priori == 1) {
-                   while (stack1.get() != '(') {
-                       result.push_back(' ');
-                       result.push_back(stack1.get());
-                       stack1.pop();
-                   }
-                   stack1.pop();
-               } else {
-                   if (priori <= priorityTop && priori > 1) {
-                       while (!stack1.isEmpty() && stack1.get() != '(') {
-                           result.push_back(' ');
-                           result.push_back(stack1.get());
-                           stack1.pop();
-                       }
-                       stack1.push(chr);
-                   }
-               }
-           }
+            }
+            else {
+                result.push_back(' ');
+            }
+            result.push_back(chr);
+        }
+        else {
+            priori = priority(chr);
+            priorityTop = priority(chrPrv);
+            if ((stack1.isEmpty() || priori > priorityTop || !priori)
+                && priori != 1) {
+                stack1.push(chr);
+            }
+            else {
+                if (priori == 1) {
+                    while (stack1.get() != '(') {
+                        result.push_back(' ');
+                        result.push_back(stack1.get());
+                        stack1.pop();
+                    }
+                    stack1.pop();
+                }
+                else {
+                    if (priori <= priorityTop && priori > 1) {
+                        while (!stack1.isEmpty() && stack1.get() != '(') {
+                            result.push_back(' ');
+                            result.push_back(stack1.get());
+                            stack1.pop();
+                        }
+                        stack1.push(chr);
+                    }
+                }
+            }
         }
     }
     while (!stack1.isEmpty()) {
@@ -97,8 +101,8 @@ std::string infx2pstfx(std::string inf) {
 }
 
 int eval(std::string pst) {
-  // добавьте сюда нужный код
-  return 0;
+    // добавьте сюда нужный код
+    return 0;
     int result = 0;
     TStack<char> stack1;
     TStack<int> stack2;
@@ -110,17 +114,17 @@ int eval(std::string pst) {
         chr = pst[i];
         if (chr != ' ') {
             if (chr >= '0' && chr <= '9') {
-                stack2.push(ch - 48);
-            } else {
+                stack2.push(chr - 48);
+            }
+            else {
                 first = stack2.get();
                 stack2.pop();
                 second = stack2.get();
                 stack2.pop();
                 second = math(first, second, chr);
-                stack2.push(scnd);
+                stack2.push(second);
             }
         }
     }
-    return stack2.get ();
-}
+    return stack2.get();
 }
